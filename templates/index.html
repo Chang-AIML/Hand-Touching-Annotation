@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HICE Annotation Tool</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <!-- Left sidebar: video list -->
+  <aside id="sidebar">
+    <div id="sidebar-header">
+      <h2>Video List</h2>
+      <div id="progress-summary">Loading...</div>
+    </div>
+    <div id="search-box">
+      <input type="text" id="search-input" placeholder="Search UUID..." />
+    </div>
+    <ul id="video-list"></ul>
+  </aside>
+
+  <!-- Main content -->
+  <main id="main">
+    <div id="welcome" class="center-msg">
+      <p>← Select a video from the list to start annotating</p>
+      <div class="shortcuts-hint">
+        <b>Shortcuts:</b>
+        <span>Space — Play / Pause</span>
+        <span>← → — Step frame</span>
+        <span>Enter — Label frame</span>
+        <span>Ctrl+Z — Undo</span>
+      </div>
+    </div>
+
+    <div id="player-container" style="display:none">
+      <!-- Top bar -->
+      <div id="player-topbar">
+        <span id="video-title"></span>
+        <div id="fps-control">
+          <label for="fps-slider">FPS: <span id="fps-value">30</span></label>
+          <input type="range" id="fps-slider" min="1" max="120" value="30" />
+          <label for="fps-slow-slider">Near label: <span id="fps-slow-value">5</span></label>
+          <input type="range" id="fps-slow-slider" min="1" max="120" value="5" />
+        </div>
+      </div>
+
+      <!-- Canvas -->
+      <div id="canvas-wrapper">
+        <canvas id="frame-canvas"></canvas>
+        <div id="paused-overlay" class="overlay-hidden">⏸ Paused</div>
+        <img id="lab-logo" src="/static/logo.png" alt="BBVisual Lab" />
+      </div>
+
+      <!-- Progress bar -->
+      <div id="progressbar-wrapper">
+        <canvas id="progress-canvas"></canvas>
+        <div id="progress-tooltip"></div>
+      </div>
+
+      <!-- Frame info -->
+      <div id="frame-info">
+        <span id="frame-counter">Frame 0 / 0</span>
+        <span id="frame-filename"></span>
+        <button id="btn-play-pause" title="Space">▶ Play</button>
+        <button id="btn-annotate" title="Enter">✓ Label Frame</button>
+        <button id="btn-undo" title="Ctrl+Z" disabled>↩ Undo</button>
+        <button id="btn-done">★ Mark Done</button>
+        <button id="btn-skip">⊘ Skip</button>
+        <button id="btn-review">👁 Review</button>
+        <div id="difficulty-group">
+          <span class="diff-label">Difficulty:</span>
+          <button class="diff-btn" data-diff="easy">Easy</button>
+          <button class="diff-btn" data-diff="medium">Medium</button>
+          <button class="diff-btn" data-diff="hard">Hard</button>
+          <button class="diff-btn" data-diff="extreme">Extreme</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Right panel: annotations -->
+  <aside id="rightpanel">
+    <div id="rightpanel-header">
+      <h3>Labeled Frames</h3>
+      <span id="ann-count">0 frames</span>
+    </div>
+    <ul id="ann-list"></ul>
+  </aside>
+
+  <script src="/static/player.js"></script>
+</body>
+</html>
